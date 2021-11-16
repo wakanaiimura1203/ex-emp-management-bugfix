@@ -96,6 +96,8 @@ public class AdministratorController {
 		// ログイン画面にリダイレクト
 		return "redirect:/";
 	}
+	
+	
 
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする
