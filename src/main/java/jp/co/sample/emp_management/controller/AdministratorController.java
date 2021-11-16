@@ -84,6 +84,14 @@ public class AdministratorController {
 			return toInsert();
 		}
 		
+		// パスワードと確認用パスワードが一致しているか角煮する
+		if(form.getPassword().equals(form.getConfirmationPassword())){
+		} else {
+			model.addAttribute("passwordErrorMessage","パスワードと確認パスワードが一致しません");
+			return toInsert();
+		}
+		
+		
 		//　入力値がnullでなかったら、エラーメッセージを表示する
 		// nullだったら普通に登録処理をする
 		

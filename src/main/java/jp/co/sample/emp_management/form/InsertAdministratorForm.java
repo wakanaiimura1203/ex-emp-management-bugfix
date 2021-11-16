@@ -25,6 +25,12 @@ public class InsertAdministratorForm {
 	@Pattern(regexp="[a-zA-Z0-9]*",message="パスワードは半角英数字で入力してください")
 	private String password;
 	
+	// 確認用パスワード　空欄NG・パスワードと一致しなければならない
+	@NotBlank(message = "確認用パスワードを入力してください")
+	private String confirmationPassword;
+	
+	
+
 	public String getName() {
 		return name;
 	}
@@ -63,11 +69,22 @@ public class InsertAdministratorForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+	public String getConfirmationPassword() {
+		return confirmationPassword;
+	}
+
+	public void setConfirmationPassword(String confirmationPassword) {
+		this.confirmationPassword = confirmationPassword;
+	}
 
 	@Override
 	public String toString() {
 		return "InsertAdministratorForm [name=" + name + ", mailAddress=" + mailAddress + ", password=" + password
-				+ "]";
+				+ ", confirmationPassword=" + confirmationPassword + "]";
 	}
+
+	
 
 }
