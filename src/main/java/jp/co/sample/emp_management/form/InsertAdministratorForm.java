@@ -1,22 +1,36 @@
 package jp.co.sample.emp_management.form;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
- * 管理者情報登録時に使用するフォーム.
- * 
- * @author igamasayuki
+ * 管理者情報登録時に使用するフォーム
  * 
  */
 public class InsertAdministratorForm {
-	/** 名前 */
+	// 名前 空欄NG
+	@NotBlank(message = "名前を入力してください")
 	private String name;
-	/** メールアドレス */
+	
+	// メールアドレス 空欄NG・メールアドレスの形式で
+	@NotBlank(message = "メールアドレスを入力してください")
+	@Email(message = "メールアドレスの形式ではありません")
 	private String mailAddress;
-	/** パスワード */
+	
+	// パスワード　空欄NG・8文字以上・英数字のみOK
+	@NotBlank(message = "パスワードを入力してください")
+	@Size(min=8,message="8文字以上で入力してください")
+	@Pattern(regexp="[a-zA-Z0-9]*",message="パスワードは半角英数字で入力してください")
 	private String password;
+	
+	// 確認用パスワード　空欄NG・パスワードと一致しなければならない
+	@NotBlank(message = "確認用パスワードを入力してください")
+	private String confirmationPassword;
+	
+	
 
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
@@ -56,10 +70,21 @@ public class InsertAdministratorForm {
 		this.password = password;
 	}
 	
+	
+	public String getConfirmationPassword() {
+		return confirmationPassword;
+	}
+
+	public void setConfirmationPassword(String confirmationPassword) {
+		this.confirmationPassword = confirmationPassword;
+	}
+
 	@Override
 	public String toString() {
 		return "InsertAdministratorForm [name=" + name + ", mailAddress=" + mailAddress + ", password=" + password
-				+ "]";
+				+ ", confirmationPassword=" + confirmationPassword + "]";
 	}
+
 	
+
 }

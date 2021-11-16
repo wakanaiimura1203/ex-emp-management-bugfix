@@ -1,5 +1,6 @@
 package jp.co.sample.emp_management.controller;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -72,13 +74,38 @@ public class AdministratorController {
 	 * @return ログイン画面へリダイレクト
 	 */
 	@RequestMapping("/insert")
-	public String insert(InsertAdministratorForm form) {
+	public String insert(@Validated InsertAdministratorForm form, BindingResult result,Model model) {
+		
 		Administrator administrator = new Administrator();
-		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
+		
+		// もしエラーが発生したら管理者情報入力画面にかえす
+		if (result.hasErrors()) {
+			return toInsert();
+		}
+		
+		// パスワードと確認用パスワードが一致しているか角煮する
+		if(form.getPassword().equals(form.getConfirmationPassword())){
+		} else {
+			model.addAttribute("passwordErrorMessage","パスワードと確認パスワードが一致しません");
+			return toInsert();
+		}
+		
+		
+		//　入力値がnullでなかったら、エラーメッセージを表示する
+		// nullだったら普通に登録処理をする
+		
+		if(administratorService.findByMailAddress(form.getMailAddress()) != null) {
+			model.addAttribute("errorMessage","入力されたメールアドレスは登録済みです。");
+			return toInsert();
+		}
+		// 登録処理
 		administratorService.insert(administrator);
-		return "employee/list";
+		// ログイン画面にリダイレクト
+		return "redirect:/";
 	}
+	
+	
 
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする
@@ -99,7 +126,7 @@ public class AdministratorController {
 	 * @param form
 	 *            管理者情報用フォーム
 	 * @param result
-	 *            エラー情報格納用オブッジェクト
+	 *            エラー情報格納用オブジェクト
 	 * @return ログイン後の従業員一覧画面
 	 */
 	@RequestMapping("/login")
