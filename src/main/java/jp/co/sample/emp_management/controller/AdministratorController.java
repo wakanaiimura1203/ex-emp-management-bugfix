@@ -1,5 +1,6 @@
 package jp.co.sample.emp_management.controller;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -73,18 +74,26 @@ public class AdministratorController {
 	 * @return ログイン画面へリダイレクト
 	 */
 	@RequestMapping("/insert")
-	public String insert(@Validated InsertAdministratorForm form, BindingResult result) {
-
-		// もしエラーが発生したら管理者情報入力画面にかえす
-		if (result.hasErrors()) {
-			  return toInsert();
-		}
+	public String insert(@Validated InsertAdministratorForm form, BindingResult result,Model model) {
 		
 		Administrator administrator = new Administrator();
 		BeanUtils.copyProperties(form, administrator);
 		
-		// 登録
+		// もしエラーが発生したら管理者情報入力画面にかえす
+		if (result.hasErrors()) {
+			return toInsert();
+		}
+		
+		//　入力値がnullでなかったら、エラーメッセージを表示する
+		// nullだったら普通に登録処理をする
+		
+		if(administratorService.findByMailAddress(form.getMailAddress()) != null) {
+			model.addAttribute("errorMessage","入力されたメールアドレスは登録済みです。");
+			return toInsert();
+		}
+		// 登録処理
 		administratorService.insert(administrator);
+		// ログイン画面にリダイレクト
 		return "redirect:/";
 	}
 

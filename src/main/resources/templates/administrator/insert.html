@@ -53,9 +53,12 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">
+									 <p th:text="${errorMessage}" th:if="${errorMessage!=null}">入力されたメールアドレスは既に登録済みです</p>
+									
 										<label for="mailAddress">
 											メールアドレス:
 										</label>
+					
 										<label th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" class="error-messages">
 											メールアドレスを入力してください
 										</label>

@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * 管理者情報登録時に使用するフォーム.
+ * 管理者情報登録時に使用するフォーム
  * 
  */
 public class InsertAdministratorForm {
@@ -22,9 +22,8 @@ public class InsertAdministratorForm {
 	// パスワード　空欄NG・8文字以上・英数字のみOK
 	@NotBlank(message = "パスワードを入力してください")
 	@Size(min=8,message="8文字以上で入力してください")
-	@Pattern(regexp="/^[0-9a-zA-Z]*$/",message="パスワードは半角英数字で入力してください")
+	@Pattern(regexp="[a-zA-Z0-9]*",message="パスワードは半角英数字で入力してください")
 	private String password;
-	
 	
 	public String getName() {
 		return name;
