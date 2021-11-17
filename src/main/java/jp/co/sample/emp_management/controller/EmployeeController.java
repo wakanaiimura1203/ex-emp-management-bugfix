@@ -47,11 +47,44 @@ public class EmployeeController {
 	 * @return 従業員一覧画面
 	 */
 	@RequestMapping("/showList")
-	public String showList(Model model) {
+	public String showList(Model model , String searchName) {
 		List<Employee> employeeList = employeeService.showList();
+		
 		model.addAttribute("employeeList", employeeList);
+		
 		return "employee/list";
 	}
+	
+	/**
+	 * 従業員一覧画面を出力します.
+	 * 
+	 * @param model モデル
+	 * @return 従業員一覧画面
+	 * (6-2)中級 従業員曖昧検索　作成中
+	  
+	 
+	@RequestMapping("/searchName")
+	public String searchName(String searchName) {
+
+		List<Employee> list =null;
+		// もし検索が空文字であれば全件検索をする
+		// 空文字でなければ検索をする
+		// 指定文字列がない場合⇒全件検索結果＋「１件もありませんでした」というメッセージを表示
+		if(searchName == "") {
+			employeeList = employeeService.showList();
+			model.addAttribute("employeeList",employeeList);
+		} 
+		if	employeeList = employeeService.searchName(searchName);
+	
+		
+		//　デフォルト　曖昧検索
+		
+     
+
+	}
+	
+	*/
+	
 
 	
 	/////////////////////////////////////////////////////
