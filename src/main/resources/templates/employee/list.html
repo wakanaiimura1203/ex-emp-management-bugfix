@@ -65,10 +65,14 @@
 <!-- ここにモックのtable要素を貼り付けます -->
 
 		<!-- 従業員検索フォーム -->
+		<div class="alert alert-danger" th:if="${errorMessage}">
+			<p th:text="${errorMessage}">従業員が見つかりません</p>
+	    </div>
 		<form th:action="@{/employee/searchName}" method="post">
-			<input type="text" name="search" id="search"> <button name="serchButton" id="serchButton">従業員検索</button>
+			<input type="text" name="searchName" id="searchName" th:value="${searchName}"> <button name="serchButton" id="serchButton">従業員検索</button>
+		
 		</form>
-
+ 	
 				<table class="table table-striped">
 					<thead>
 						<tr>
