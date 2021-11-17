@@ -1,6 +1,7 @@
 package jp.co.sample.emp_management.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -87,7 +88,7 @@ public class AdministratorController {
 		// パスワードと確認用パスワードが一致しているか角煮する
 		if(form.getPassword().equals(form.getConfirmationPassword())){
 		} else {
-			model.addAttribute("passwordErrorMessage","パスワードと確認パスワードが一致しません");
+			model.addAttribute("passwordErrorMessage","入力されたパスワードと確認パスワードが一致しません。");
 			return toInsert();
 		}
 		
@@ -136,6 +137,9 @@ public class AdministratorController {
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return toLogin();
 		}
+		
+		session.setAttribute("administratorName", administrator.getName());
+		//model.addAttribute("administratorName",administratorService.login();
 		return "forward:/employee/showList";
 	}
 	

@@ -40,6 +40,7 @@ public class AdministratorService {
 		return administrator;
 	}
 	
+	// メールアドレスから管理者の情報を取得
 	public Administrator findByMailAddress(String mailAddress) {
 		Administrator administrator = administratorRepository.findByMailAddress(mailAddress);
 		return administrator;
