@@ -139,7 +139,6 @@ public class AdministratorController {
 		}
 		
 		session.setAttribute("administratorName", administrator.getName());
-		//model.addAttribute("administratorName",administratorService.login();
 		return "forward:/employee/showList";
 	}
 	
