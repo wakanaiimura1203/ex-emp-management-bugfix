@@ -40,7 +40,7 @@
 						<li class="active"><a href="list.html" th:href="@{/employee/showList}">従業員管理</a></li>
 					</ul>
 					<p class="navbar-text navbar-right">
-						<span th:text="${administratorName}">山田太郎</span>さんこんにちは！
+						<span th:text="${session.administratorName}">山田太郎</span>さんこんにちは！
 						&nbsp;&nbsp;&nbsp;
 						<a href="../administrator/login.html" class="navbar-link" th:href="@{/logout}">ログアウト</a>
 					</p>
@@ -54,7 +54,7 @@
 		<ol class="breadcrumb">
 			<li class="active"><a href="list.html" th:href="@{/employee/showList}">従業員リスト</a></li>
 		</ol>
-
+		
 		<!-- table -->
 		<div class="row">
 			<div
@@ -63,6 +63,11 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのtable要素を貼り付けます -->
+
+		<!-- 従業員検索フォーム -->
+		<form th:action="@{/employee/searchName}" method="post">
+			<input type="text" name="search" id="search"> <button name="serchButton" id="serchButton">従業員検索</button>
+		</form>
 
 				<table class="table table-striped">
 					<thead>
@@ -80,7 +85,7 @@
 								</a>
 							</td>
 							<td>
-								<span th:text="${employee.hireDate}">2016/12/1</span>
+								<span th:text="${#dates.format(employee.hireDate,'yyyy年MM月dd日')}">2012/11/29</span>
 							</td>
 							<td>
 								<span th:text="${employee.dependentsCount} + '人'">3人</span>
